@@ -1,6 +1,6 @@
 #YCommunicator
 
-Version 1.0
+Version 1.1
 
 A protocol and implementation of "device to device" serial communication, originally planned for connecting Arduino and other devices via serial communication.
 
@@ -13,19 +13,22 @@ A protocol and implementation of "device to device" serial communication, origin
 
 ##Protocol Definitions
 
+The protocol defines "Packets" and "Instructions". 
+Packets are transmitted serially with a fixed "delimiter byte" and an "escape byte".
+* Delimiter: 0x7c
+* Escape: 0x00 
+
 ###Packet:
-A packet is the minimum transmitable unit. It wraps a payload - a byte array of unspecified data
+A packet is the minimum transmitable unit. It wraps the payload - a byte array of unspecified data.
 
 #####Structure:
 
- 1. unsigned char **payload_len**
- - unsigned char[payload_len] **payload** - actual instructions
+ 1. unsigned char[] **payload** - actual instructions
  - unsigned short int **checksum**
 
 #####Notes:
 
- - Packet size is always payload size + 3
- - Max payload size is 255
+ - Packet size is at least payload size + 2
 
 ###Instruction:
 An Instruction is the most basic operational syntax that can be exchanged between the devices.
@@ -38,10 +41,6 @@ An Instruction is the most basic operational syntax that can be exchanged betwee
 #####Notes:
  - data length is always **payload_len - 2**
 
-#####Suggested Commands:
- 1. 0x00 Ping
- - 0x01 Clock
- - ...
 
 ##Functional (API) Prototype
 
@@ -64,8 +63,8 @@ Also, I suggest to create an application for out-of-the-box integration:
  - 
 
 #####Suggestion for Mobile app:
- 1. Allow user to add UI controls to his app by on-screen selection. Every contol is identified by a number. Controls can be buttons, text fiels, chackboxes, scrolls, etc.
+ 1. Allow user to add UI controls to his app by on-screen selection. Every control is identified by a number. Controls can be buttons, text fields, checkboxes, scrolls, etc.
  - Define an instruction that is dispatched on a control value change. For example: type=0, command=0x2, data=[(byte)control number,(4 byte) control value]
- - Allow user to add sensors data - GPS, Compas, Gyro/Accelometer, etc. Need to define a command/data struct for each sensor seperatly.  
+ - Allow user to add sensors data - GPS, Compass, Gyro/Accelerometer, etc. Need to define a command/data structure for each sensor separately.  
 
 
