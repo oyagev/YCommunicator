@@ -10,6 +10,12 @@ A protocol and implementation of "device to device" serial communication, origin
  - Simple API: allow developers to define commands and register functions on those commands.
  - Availability: support multiple devices by having creating libraries for all major OSs and languages.
 
+## Implementations:
+
+ - Arduino package including examples: https://github.com/oyagev/YCommunicator-Arduino
+ - Android application and source code: https://github.com/oyagev/YCommunicator-Android
+ - C++ implementation: https://github.com/oyagev/YCommunicator-CPP
+ - Java implementation: https://github.com/oyagev/YCommunicator-Java
 
 ##Protocol Definitions
 
@@ -61,10 +67,4 @@ Also, I suggest to create an application for out-of-the-box integration:
  - Mobile App that supports adding/defining controls and sensors (see below)
  - PC application with graphic UI that supports adding/defining controls.
  - 
-
-#####Suggestion for Mobile app:
- 1. Allow user to add UI controls to his app by on-screen selection. Every control is identified by a number. Controls can be buttons, text fields, checkboxes, scrolls, etc.
- - Define an instruction that is dispatched on a control value change. For example: type=0, command=0x2, data=[(byte)control number,(4 byte) control value]
- - Allow user to add sensors data - GPS, Compass, Gyro/Accelerometer, etc. Need to define a command/data structure for each sensor separately.  
-
 
